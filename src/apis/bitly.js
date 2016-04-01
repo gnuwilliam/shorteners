@@ -3,7 +3,7 @@ import querystring from 'querystring';
 
 const API_URL = 'https://api-ssl.bit.ly/';
 
-export class BitLy extends Base {
+export class Bitly extends Base {
     constructor(opts) {
         super(opts);
         if (!this.opts.token) {
@@ -30,10 +30,10 @@ export class BitLy extends Base {
                     return that.shortenUrl;
                 }
             } else {
-                throw 'Error on TinyUrl short() call, ' + err;
+                throw 'Error on Bitly short() call, ' + err;
             }
         }).on('error', (err) => {
-            throw 'Error on TinyUrl short() call, ' + err;
+            throw 'Error on Bitly short() call, ' + err;
         });
     }
 
@@ -60,10 +60,10 @@ export class BitLy extends Base {
                     return that.shortenUrl;
                 }
             } else {
-                throw 'Error on TinyUrl short() call, ' + err;
+                throw 'Error on Bitly short() call, ' + err;
             }
         }).on('error', (err) => {
-            throw 'Error on TinyUrl short() call, ' + err;
+            throw 'Error on Bitly short() call, ' + err;
         });
     }
 }

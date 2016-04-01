@@ -8,7 +8,7 @@ export class Base {
     }
 
     short() {
-        throw 'Not Implemented';
+        throw new Error('Not Implemented');
     }
 
     expand(url, cb) {
@@ -22,7 +22,7 @@ export class Base {
                 }
             }
         }).on('error', (err) => {
-            throw 'Error on expanding, ' + err;
+            throw new Error('Error on expanding, ' + err);
         });
     }
 }

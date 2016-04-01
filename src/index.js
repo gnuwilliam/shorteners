@@ -1,9 +1,10 @@
-import {TinyUrl} from './apis/tinyurl';
-import {BitLy} from './apis/bitly';
+import {Tinyurl} from './apis/tinyurl';
+import {Bitly} from './apis/bitly';
+import {Base} from './apis/base';
 
 const SHORTENERS_MAPPING = {
-    'tinyurl': TinyUrl,
-    'bitly': BitLy
+    'tinyurl': Tinyurl,
+    'bitly': Bitly
 };
 
 /**
@@ -25,10 +26,15 @@ export default class Shortener {
      * @param opts API engine extra options. E.g: token, username, password
      */
     constructor (engine, opts) {
-        if (!SHORTENERS_MAPPING[engine]) {
-            throw engine + ' API not found.';
+        if (!engine) {
+            this.engine = new Base();
+        } else {
+            try {
+                this.engine = new SHORTENERS_MAPPING[engine](opts);
+            } catch(e) {
+                throw new Error(engine + ' API engine does not exists');
+            }
         }
-        this.engine = new SHORTENERS_MAPPING[engine](opts);
         this.opts = opts || {};
     }
 
@@ -41,7 +47,7 @@ export default class Shortener {
      */
     short(url, cb) {
         if (!Shortener.isValidUrl(url)) {
-            throw url + ' is not a valid URL. Try Again.';
+            throw new Error(url + ' is not a valid URL. Try Again.');
         }
         return this.engine.short(url, cb);
     }
@@ -57,7 +63,7 @@ export default class Shortener {
             this.engine.expand(this.shortenUrl, cb);
         }
         if (!Shortener.isValidUrl(url)) {
-            throw url + ' is not a valid URL. Try Again.';
+            throw new Error(url + ' is not a valid URL. Try Again.');
         }
         return this.engine.expand(url, cb);
     }
@@ -81,6 +87,10 @@ export default class Shortener {
         if (!url) {
             return false;
         }
-        return true;
+        let re = /^(?:http|ftp)s?:\/\/(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|localhost|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|\[?[A-F0-9]*:[A-F0-9:]+\]?)(?::\d+)?(?:\/?|[\/?]\S+)$/i;
+        if (url.match(re)) {
+            return true;
+        }
+        return false;
     }
 }
