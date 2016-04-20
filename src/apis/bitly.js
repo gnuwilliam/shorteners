@@ -7,7 +7,7 @@ export class Bitly extends Base {
     constructor(opts) {
         super(opts);
         if (!this.opts.token) {
-            throw 'Bit.ly token missing';
+            throw new Error('Bit.ly token missing');
         }
         this.token = this.opts.token;
     }

@@ -2,6 +2,7 @@ import {assert} from 'chai';
 import {Base} from './apis/base';
 import {Tinyurl} from './apis/tinyurl';
 import {Bitly} from './apis/bitly';
+import {Googl} from './apis/googl';
 import Shortener from './index';
 
 describe('Base Class Tests', () => {
@@ -13,7 +14,6 @@ describe('Base Class Tests', () => {
         assert(b.request !== undefined, 'Base response property is not undefined');
     });
 });
-
 
 describe('Shortener Class Tests', () => {
 
@@ -48,15 +48,44 @@ describe('Shortener Class Tests', () => {
         assert.throws(fn, Error);
     });
 
-    it('tinyurl tests', () => {
+});
+
+describe('Tinyurl tests', () => {
+    it('instantiation test', () => {
         let s = new Shortener('tinyurl');
         assert(s instanceof Shortener);
         assert(s.engine instanceof Tinyurl, 'Shortener Engine is instance of TinyUrl');
     });
+});
 
-    it('bitly tests', () => {
+describe('Bit.ly tests', () => {
+    it('instantiation test', () => {
         let s = new Shortener('bitly', {token: '123456'});
         assert(s instanceof Shortener);
         assert(s.engine instanceof Bitly, 'Shortener Engine is instance of Bitly');
+    });
+
+    it('wrong instantiation raises error', () => {
+        let fn = () => {
+           let s = new Shortener('bitly');
+           s.short('test');
+        };
+        assert.throws(fn, Error);
+    });
+});
+
+describe('Goo.gl tests', () => {
+    it('instantiation test', () => {
+        let s = new Shortener('googl', {apiKey: '123456'});
+        assert(s instanceof Shortener);
+        assert(s.engine instanceof Googl, 'Shortener Engine is instance of Googl');
+    });
+
+    it('wrong instantiation raises error', () => {
+        let fn = () => {
+           let s = new Shortener('googl');
+           s.short('test');
+        };
+        assert.throws(fn, Error);
     });
 });

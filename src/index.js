@@ -1,10 +1,15 @@
+import {Base} from './apis/base';
 import {Tinyurl} from './apis/tinyurl';
 import {Bitly} from './apis/bitly';
-import {Base} from './apis/base';
+import {Googl} from './apis/googl';
 
+/**
+ * Shorteners Mapping const
+ */
 const SHORTENERS_MAPPING = {
     'tinyurl': Tinyurl,
-    'bitly': Bitly
+    'bitly': Bitly,
+    'googl': Googl
 };
 
 /**
@@ -29,10 +34,15 @@ export default class Shortener {
         if (!engine) {
             this.engine = new Base();
         } else {
+            let keys = Object.keys(SHORTENERS_MAPPING);
+            if (keys.indexOf(engine) === -1) {
+                throw new Error(engine + ' API does not exists');
+            }
+
             try {
                 this.engine = new SHORTENERS_MAPPING[engine](opts);
             } catch(e) {
-                throw new Error(engine + ' API engine does not exists');
+                throw new Error(e);
             }
         }
         this.opts = opts || {};
@@ -41,8 +51,8 @@ export default class Shortener {
     /**
      * short
      *
-     * @param url
-     * @param cb
+     * @param {String} url
+     * @param {Function} cb
      *
      */
     short(url, cb) {
@@ -55,8 +65,8 @@ export default class Shortener {
     /**
      * expand
      *
-     * @param url
-     * @param cb
+     * @param {String} url
+     * @param {Function} cb
      */
     expand(url, cb) {
         if (!url) {
@@ -80,7 +90,7 @@ export default class Shortener {
     /**
      * isValidUrl
      *
-     * @param url
+     * @param {String} url
      * @returns {Boolean}
      */
     static isValidUrl(url) {

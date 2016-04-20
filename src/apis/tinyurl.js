@@ -15,9 +15,8 @@ export class Tinyurl extends Base {
                 } else {
                     return that.shortenUrl;
                 }
-            } else {
-                throw new Error('Error on TinyUrl short() call, ' + err);
             }
+            throw new Error('Error on TinyUrl short() call, ' + err);
         }).on('error', (err) => {
             throw new Error('Error on TinyUrl short() call, ' + err);
         });
