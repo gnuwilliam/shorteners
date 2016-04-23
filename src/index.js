@@ -1,4 +1,5 @@
 import {Base} from './apis/base';
+import {AdFly} from './apis/adfly';
 import {Tinyurl} from './apis/tinyurl';
 import {Bitly} from './apis/bitly';
 import {Googl} from './apis/googl';
@@ -7,6 +8,7 @@ import {Googl} from './apis/googl';
  * Shorteners Mapping const
  */
 const SHORTENERS_MAPPING = {
+    'adfly': AdFly,
     'tinyurl': Tinyurl,
     'bitly': Bitly,
     'googl': Googl

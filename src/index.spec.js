@@ -1,5 +1,6 @@
 import {assert} from 'chai';
 import {Base} from './apis/base';
+import {AdFly} from './apis/adfly';
 import {Tinyurl} from './apis/tinyurl';
 import {Bitly} from './apis/bitly';
 import {Googl} from './apis/googl';
@@ -81,6 +82,22 @@ describe('Goo.gl tests', () => {
     it('wrong instantiation raises error', () => {
         let fn = () => {
            let s = new Shortener('googl');
+           s.short('test');
+        };
+        assert.throws(fn, Error);
+    });
+});
+
+describe('AdFly tests', () => {
+    it('instantiation test', () => {
+        let s = new Shortener('adfly', {key: '123456', uid: '123456'});
+        assert(s instanceof Shortener);
+        assert(s.engine instanceof AdFly, 'Shortener Engine is instance of AdFly');
+    });
+
+    it('wrong instantiation raises error', () => {
+        let fn = () => {
+           let s = new Shortener('adfly');
            s.short('test');
         };
         assert.throws(fn, Error);
