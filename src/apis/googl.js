@@ -3,7 +3,7 @@ import {Base} from './base';
 const API_URL = 'https://www.googleapis.com/urlshortener/v1/url';
 
 export class Googl extends Base {
-    constructor(opts) {
+    constructor (opts) {
         super(opts);
         if (!this.opts.apiKey) {
             throw new Error('Goo.gl API key missing');
@@ -11,7 +11,7 @@ export class Googl extends Base {
         this.apiKey = this.opts.apiKey;
     }
 
-    short(url, cb) {
+    short (url, cb) {
         let that = this,
             options = {
                 'method': 'POST',
@@ -32,13 +32,13 @@ export class Googl extends Base {
                     }
                 }
             }
-            throw new Error('Error on Goo.gl short() call, ' + err);
+            throw new Error(`Error on Goo.gl short() call, ${err}`);
         }).on('error', (err) => {
-            throw new Error('Error on Goo.gl short() call, ' + err);
+            throw new Error(`Error on Goo.gl short() call, ${err}`);
         });
     }
 
-    expand(url) {
+    expand (url) {
         if (!url && !this.shortenUrl) {
             throw new Error('Please add a url or short a url first');
         }
@@ -50,9 +50,9 @@ export class Googl extends Base {
                     return response.longUrl;
                 }
             }
-            throw new Error('Error on expanding url , ' + err);
+            throw new Error(`Error on expanding url, ${err}`);
         }).on('error', (err) => {
-            throw new Error('Error on expanding url , ' + err);
+            throw new Error(`Error on expanding url, ${err}`);
         });
     }
 }

@@ -6,7 +6,6 @@ import {Googl} from './apis/googl';
 import Shortener from './index';
 
 describe('Base Class Tests', () => {
-
     it('check instance properties', () => {
         let b = new Base();
         assert(b instanceof Base);
@@ -16,7 +15,6 @@ describe('Base Class Tests', () => {
 });
 
 describe('Shortener Class Tests', () => {
-
     it('check instance properties', () => {
         let s = new Shortener();
         assert(s instanceof Shortener);
@@ -47,7 +45,6 @@ describe('Shortener Class Tests', () => {
         };
         assert.throws(fn, Error);
     });
-
 });
 
 describe('Tinyurl tests', () => {

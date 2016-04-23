@@ -3,7 +3,7 @@ import {Base} from './base';
 const API_URL = 'http://tinyurl.com/api-create.php';
 
 export class Tinyurl extends Base {
-    short(url, cb) {
+    short (url, cb) {
         let params = '?url=' + encodeURIComponent(url),
             that = this;
 
@@ -16,13 +16,13 @@ export class Tinyurl extends Base {
                     return that.shortenUrl;
                 }
             }
-            throw new Error('Error on TinyUrl short() call, ' + err);
+            throw new Error(`Error on TinyUrl short() call, ${err}`);
         }).on('error', (err) => {
-            throw new Error('Error on TinyUrl short() call, ' + err);
+            throw new Error(`Error on TinyUrl short() call, ${err}`);
         });
     }
 
-    expand(url) {
+    expand (url) {
         if (!url && !this.shortenUrl) {
             throw new Error('Please add a url or short a url first');
         }
@@ -31,10 +31,10 @@ export class Tinyurl extends Base {
             if (!err && resp.statusCode === 200) {
                 return resp.body;
             } else {
-                throw new Error('Error on expanding url , ' + err);
+                throw new Error(`Error on expanding url, ${err}`);
             }
         }).on('error', (err) => {
-            throw new Error('Error on expanding url , ' + err);
+            throw new Error(`Error on expanding url, ${err}`);
         });
     }
 }

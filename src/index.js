@@ -36,7 +36,7 @@ export default class Shortener {
         } else {
             let keys = Object.keys(SHORTENERS_MAPPING);
             if (keys.indexOf(engine) === -1) {
-                throw new Error(engine + ' API does not exists');
+                throw new Error(`${engine} API does not exist`);
             }
 
             try {
@@ -55,9 +55,9 @@ export default class Shortener {
      * @param {Function} cb
      *
      */
-    short(url, cb) {
+    short (url, cb) {
         if (!Shortener.isValidUrl(url)) {
-            throw new Error(url + ' is not a valid URL. Try Again.');
+            throw new Error(`${url} is not a valid URL. Try Again.`);
         }
         return this.engine.short(url, cb);
     }
@@ -68,12 +68,12 @@ export default class Shortener {
      * @param {String} url
      * @param {Function} cb
      */
-    expand(url, cb) {
+    expand (url, cb) {
         if (!url) {
             this.engine.expand(this.shortenUrl, cb);
         }
         if (!Shortener.isValidUrl(url)) {
-            throw new Error(url + ' is not a valid URL. Try Again.');
+            throw new Error(`${url} is not a valid URL. Try Again.`);
         }
         return this.engine.expand(url, cb);
     }
@@ -83,7 +83,7 @@ export default class Shortener {
      *
      * @returns {String}
      */
-    get shortenUrl() {
+    get shortenUrl () {
         return this.engine.shortenUrl;
     }
 
@@ -93,7 +93,7 @@ export default class Shortener {
      * @param {String} url
      * @returns {Boolean}
      */
-    static isValidUrl(url) {
+    static isValidUrl (url) {
         if (!url) {
             return false;
         }

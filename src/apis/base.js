@@ -1,17 +1,17 @@
 import request from 'request';
 
 export class Base {
-    constructor(opts) {
+    constructor (opts) {
         this.request = request;
         this.shortenUrl = '';
         this.opts = opts || {};
     }
 
-    short() {
+    short () {
         throw new Error('Not Implemented');
     }
 
-    expand(url, cb) {
+    expand (url, cb) {
         this.request(url, (err, res, body) => {
             if (!err && res.statusCode === 200) {
                 console.log('Request ok', body);
@@ -22,7 +22,7 @@ export class Base {
                 }
             }
         }).on('error', (err) => {
-            throw new Error('Error on expanding, ' + err);
+            throw new Error(`Error on expanding, ${err}`);
         });
     }
 }
